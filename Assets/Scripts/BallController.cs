@@ -10,11 +10,11 @@ public class BallController : MonoBehaviour
 
     void Update()
     {
-        // Left-Right Movement
+        // Left-Right
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.position += new Vector3(horizontalInput, 0, 0) * moveSpeed * Time.deltaTime;
 
-        // Jump Mechanic
+        // Jump
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -24,7 +24,6 @@ public class BallController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Assuming there's a ground tag or a platform tag
         if (collision.gameObject.tag == "Platform")
         {
             canJump = true;
@@ -36,7 +35,7 @@ public class BallController : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        // Check if the ball has stopped colliding with the ground or a platform
+        // Si no esta colisionando con suelo o plataforma no puede saltar
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Platform"))
         {
             canJump = false;
@@ -47,7 +46,7 @@ public class BallController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Platform")
         {
-            // Notify GameManager about the platform's color
+            // Cambio de color en el gamemanager
             string platformColor = collider.gameObject.GetComponent<SpriteRenderer>().sprite.name;
             GameManager gameManager = FindObjectOfType<GameManager>();
             gameManager.BallPassedPlatform(platformColor);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] ballPrefabs; // Drag the 4 ball GameObject prefabs here.
+    public GameObject[] ballPrefabs; // Los prefabs de colores para la bola
     private GameObject currentBall;
 
     public int score = 0;
@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
 
     public void BallPassedPlatform(string platformColor)
     {
-        string ballColor = currentBall.name.Replace("(Clone)", "").Trim(); // Gets the name of the prefab, removing the "(Clone)" suffix that Unity adds
+        string ballColor = currentBall.name.Replace("(Clone)", "").Trim(); // Elimina el "(Clone)" del nombre del objeto nuevo que Unity crea al cambiar el color de la bola
 
         if (ballColor.StartsWith(platformColor))
         {
-            // Correct color passed
+            // color correcto
             score += multiplier;
             correctPasses++;
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Wrong color passed
+            // color erroneo
             multiplier = 1;
             correctPasses = 0;
         }
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         int randomIndex = Random.Range(0, ballPrefabs.Length);
 
-        // Add a slight vertical offset to ensure the new ball is instantiated above the platform
+        // Spawnea el color nuevo por encima de la plataforma siguiente
         Vector3 currentBallPosition = currentBall.transform.position + new Vector3(0, 0.25f, 0);
         Quaternion currentBallRotation = currentBall.transform.rotation;
 
